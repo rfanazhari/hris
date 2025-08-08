@@ -9,6 +9,7 @@ import (
 	"time"
 )
 
+// JobPositionFactory represents a factory for creating JobPosition objects with validation rules applied.
 type JobPositionFactory struct {
 	ID             string
 	Title          string
@@ -20,6 +21,7 @@ type JobPositionFactory struct {
 	CreatedAt      time.Time
 }
 
+// Create generates a new JobPosition using the factory data, validating fields like ID, Title, Description, and Salary.
 func (f JobPositionFactory) Create() (*JobPosition, error) {
 	newUUID, err := uuid.Parse(f.ID)
 	if err != nil {

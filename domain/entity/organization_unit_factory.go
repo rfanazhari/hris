@@ -8,6 +8,7 @@ import (
 	"time"
 )
 
+// OrganizationUnitFactory is a factory type for creating instances of OrganizationUnit with validated properties.
 type OrganizationUnitFactory struct {
 	ID           string
 	Name         string
@@ -16,6 +17,7 @@ type OrganizationUnitFactory struct {
 	CreatedAt    time.Time
 }
 
+// Create initializes and returns a new OrganizationUnit instance or an error if validation fails.
 func (f OrganizationUnitFactory) Create() (*OrganizationUnit, error) {
 	var parentUnitID *uuid.UUID
 
