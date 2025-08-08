@@ -12,7 +12,7 @@ type JobPosition struct {
 	id          uuid.UUID
 	title       string
 	description string
-	gradeLevel  enum.JobGradeLevel
+	gradeLevel  enum.GradeLevel
 	salaryRange valueobject.SalaryRange
 	createdAt   time.Time
 }
@@ -33,7 +33,7 @@ func (j *JobPosition) Description() string {
 }
 
 // GradeLevel returns the job grade level associated with the JobPosition instance.
-func (j *JobPosition) GradeLevel() enum.JobGradeLevel {
+func (j *JobPosition) GradeLevel() enum.GradeLevel {
 	return j.gradeLevel
 }
 

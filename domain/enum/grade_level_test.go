@@ -12,18 +12,18 @@ import (
 func TestJobGradeLevel_Valid(t *testing.T) {
 	tests := []struct {
 		name  string
-		val   enum.JobGradeLevel
+		val   enum.GradeLevel
 		valid bool
 	}{
-		{"intern valid", enum.JobGradeIntern, true},
-		{"junior valid", enum.JobGradeJunior, true},
-		{"mid valid", enum.JobGradeMid, true},
-		{"senior valid", enum.JobGradeSenior, true},
-		{"lead valid", enum.JobGradeLead, true},
-		{"manager valid", enum.JobGradeManager, true},
-		{"director valid", enum.JobGradeDirector, true},
-		{"invalid value", enum.JobGradeLevel("unknown"), false},
-		{"empty value", enum.JobGradeLevel(""), false},
+		{"intern valid", enum.GradeIntern, true},
+		{"junior valid", enum.GradeJunior, true},
+		{"mid valid", enum.GradeMid, true},
+		{"senior valid", enum.GradeSenior, true},
+		{"lead valid", enum.GradeLead, true},
+		{"manager valid", enum.GradeManager, true},
+		{"director valid", enum.GradeDirector, true},
+		{"invalid value", enum.GradeLevel("unknown"), false},
+		{"empty value", enum.GradeLevel(""), false},
 	}
 
 	for _, tt := range tests {
@@ -38,17 +38,17 @@ func TestJobGradeLevel_Valid(t *testing.T) {
 func TestParseJobGradeLevel(t *testing.T) {
 	tests := []struct {
 		in       string
-		want     enum.JobGradeLevel
+		want     enum.GradeLevel
 		wantErr  bool
 		testName string
 	}{
-		{"intern", enum.JobGradeIntern, false, "lower intern"},
-		{" Junior ", enum.JobGradeJunior, false, "trimmed junior"},
-		{"MID", enum.JobGradeMid, false, "upper mid"},
-		{"SeNiOr", enum.JobGradeSenior, false, "mixed senior"},
-		{"LEAD", enum.JobGradeLead, false, "upper lead"},
-		{"manager", enum.JobGradeManager, false, "lower manager"},
-		{" Director ", enum.JobGradeDirector, false, "trimmed director"},
+		{"intern", enum.GradeIntern, false, "lower intern"},
+		{" Junior ", enum.GradeJunior, false, "trimmed junior"},
+		{"MID", enum.GradeMid, false, "upper mid"},
+		{"SeNiOr", enum.GradeSenior, false, "mixed senior"},
+		{"LEAD", enum.GradeLead, false, "upper lead"},
+		{"manager", enum.GradeManager, false, "lower manager"},
+		{" Director ", enum.GradeDirector, false, "trimmed director"},
 		{"unknown", "", true, "invalid"},
 		{"", "", true, "empty"},
 	}
@@ -74,7 +74,7 @@ func TestParseJobGradeLevel(t *testing.T) {
 
 func TestJobGradeLevel_JSON_MarshalUnmarshal(t *testing.T) {
 	// Marshal
-	lvl := enum.JobGradeManager
+	lvl := enum.GradeManager
 	b, err := json.Marshal(lvl)
 	if err != nil {
 		t.Fatalf("Marshal error: %v", err)
@@ -84,16 +84,16 @@ func TestJobGradeLevel_JSON_MarshalUnmarshal(t *testing.T) {
 	}
 
 	// Unmarshal valid with different case and spaces
-	var u enum.JobGradeLevel
+	var u enum.GradeLevel
 	if err := json.Unmarshal([]byte("\" LeAd \""), &u); err != nil {
 		t.Fatalf("Unmarshal error: %v", err)
 	}
-	if u != enum.JobGradeLead {
-		t.Fatalf("Unmarshal got %q, want %q", u, enum.JobGradeLead)
+	if u != enum.GradeLead {
+		t.Fatalf("Unmarshal got %q, want %q", u, enum.GradeLead)
 	}
 
 	// Unmarshal invalid
-	var u2 enum.JobGradeLevel
+	var u2 enum.GradeLevel
 	if err := json.Unmarshal([]byte("\"unknown\""), &u2); err == nil {
 		t.Fatalf("expected error unmarshalling invalid level, got nil")
 	}
@@ -101,7 +101,7 @@ func TestJobGradeLevel_JSON_MarshalUnmarshal(t *testing.T) {
 
 func TestJobGradeLevel_Value(t *testing.T) {
 	// Valid value
-	v, err := enum.JobGradeIntern.Value()
+	v, err := enum.GradeIntern.Value()
 	if err != nil {
 		t.Fatalf("Value() unexpected error: %v", err)
 	}
@@ -110,7 +110,7 @@ func TestJobGradeLevel_Value(t *testing.T) {
 	}
 
 	// Invalid value
-	var invalid enum.JobGradeLevel = "invalid"
+	var invalid enum.GradeLevel = "invalid"
 	if _, err := invalid.Value(); err == nil {
 		t.Fatalf("expected error for invalid Value(), got nil")
 	}
@@ -118,31 +118,31 @@ func TestJobGradeLevel_Value(t *testing.T) {
 
 func TestJobGradeLevel_Scan(t *testing.T) {
 	// From string
-	var j1 enum.JobGradeLevel
+	var j1 enum.GradeLevel
 	if err := j1.Scan("DIRECTOR"); err != nil {
 		t.Fatalf("Scan(string) error: %v", err)
 	}
-	if j1 != enum.JobGradeDirector {
-		t.Fatalf("Scan(string) got %q, want %q", j1, enum.JobGradeDirector)
+	if j1 != enum.GradeDirector {
+		t.Fatalf("Scan(string) got %q, want %q", j1, enum.GradeDirector)
 	}
 
 	// From []byte
-	var j2 enum.JobGradeLevel
+	var j2 enum.GradeLevel
 	if err := j2.Scan([]byte("junior")); err != nil {
 		t.Fatalf("Scan([]byte) error: %v", err)
 	}
-	if j2 != enum.JobGradeJunior {
-		t.Fatalf("Scan([]byte) got %q, want %q", j2, enum.JobGradeJunior)
+	if j2 != enum.GradeJunior {
+		t.Fatalf("Scan([]byte) got %q, want %q", j2, enum.GradeJunior)
 	}
 
 	// Invalid string value
-	var j3 enum.JobGradeLevel
+	var j3 enum.GradeLevel
 	if err := j3.Scan("unknown"); err == nil {
 		t.Fatalf("expected error for invalid string scan, got nil")
 	}
 
 	// Unsupported type
-	var j4 enum.JobGradeLevel
+	var j4 enum.GradeLevel
 	var src any = 3.14
 	if err := j4.Scan(src); err == nil {
 		t.Fatalf("expected error for unsupported type scan, got nil")
@@ -152,7 +152,7 @@ func TestJobGradeLevel_Scan(t *testing.T) {
 func TestJobGradeLevel_ImplementsDriverValuerAndScannerLike(t *testing.T) {
 	// Ensure the Value() type satisfies driver.Valuer contract shape at compile time
 	var _ driver.Valuer
-	var k enum.JobGradeLevel
+	var k enum.GradeLevel
 	// reflect check that method Scan exists
 	m, ok := reflect.TypeOf(&k).MethodByName("Scan")
 	if !ok || m.Type.NumIn() != 2 { // receiver + 1 arg
