@@ -22,14 +22,14 @@ import (
 type Religion string
 
 const (
-	ReligionIslam      Religion = "Islam"
-	ReligionProtestant Religion = "Kristen Protestan"
-	ReligionCatholic   Religion = "Katolik"
-	ReligionHindu      Religion = "Hindu"
-	ReligionBuddha     Religion = "Buddha"
-	ReligionKonghucu   Religion = "Konghucu"
-	ReligionOther      Religion = "Lainnya"
-	ReligionNone       Religion = "Tidak Ada"
+	ReligionIslam      Religion = "islam"
+	ReligionProtestant Religion = "kristen protestan"
+	ReligionCatholic   Religion = "katolik"
+	ReligionHindu      Religion = "hindu"
+	ReligionBuddha     Religion = "buddha"
+	ReligionKonghucu   Religion = "konghucu"
+	ReligionOther      Religion = "lainnya"
+	ReligionNone       Religion = "tidak ada"
 )
 
 func (r Religion) Valid() bool {
