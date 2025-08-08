@@ -11,9 +11,9 @@ import (
 // Currency is a 3-letter ISO-like code, currently limited to IDR and USD.
 // Values are non-negative and Max must be >= Min.
 type SalaryRange struct {
-	Min      int64
-	Max      int64
-	Currency string
+	Min      int64  `json:"min"`
+	Max      int64  `json:"max"`
+	Currency string `json:"currency"`
 }
 
 var allowedCurrencies = map[string]struct{}{
