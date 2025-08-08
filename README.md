@@ -58,4 +58,4 @@ Note: The main package (cmd/main.go) is intentionally minimal; this project curr
 - Cross-cutting (incremental across phases): introduce application layer (use cases), REST/GraphQL endpoints, and persistence mappings/migrations as the domain stabilizes.
 
 ## License
-If a license is required, add a LICENSE file at the repository root. Otherwise, treat this code as proprietary/internal until clarified.
+:(
